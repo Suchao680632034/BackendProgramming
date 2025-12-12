@@ -1,0 +1,30 @@
+{
+  "name": "backendprogramming",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+ "start": "node dist/index.js",
+ "build": "tsc",
+ "dev": "ts-node src/index.ts",
+ "dev2": "ts-node src/Files2.ts"
+}
+,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Suchao680632034/BackendProgramming.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/Suchao680632034/BackendProgramming/issues"
+  },
+  "homepage": "https://github.com/Suchao680632034/BackendProgramming#readme",
+  "devDependencies": {
+    "@types/node": "^24.10.2",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
+  }
+}
