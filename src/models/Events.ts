@@ -9,3 +9,12 @@ export default interface Event {
     petsAllowed: boolean;
     organizer: string;
 }
+
+export interface Books {
+    id: number;
+    title: string;
+    author: string;
+    genre: string;
+    publicationDate: string;
+    summary: string;
+}

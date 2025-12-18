@@ -1,6 +1,8 @@
 import express, {Request, Response} from 'express'
 import { getAllEvents, getEventById, getEventsByCategory, addEvent } from "../src/services/EventService";
+import { getAllBooks, getBookById, getBooksByGenre, addBook } from "../src/services/BooksService";
 import type Event from "./models/Events";
+import { Books } from './models/Events';
 
 const app = express()
 const port = 3000
@@ -57,5 +59,31 @@ app.post("/events", (req, res) => {
     res.json(newEvent);
 });
 
+
+app.get("/books", (req, res) => {
+    const genre = req.query.genre as string;
+    if (genre) {
+        const filteredBooks = getBooksByGenre(genre);
+        res.json(filteredBooks);
+    } else {
+        res.json(getAllBooks());
+    }
+});
+
+app.get("/books/:id", (req, res) => {
+    const id = parseInt(req.params.id);
+    const book = getBookById(id);
+    if (book) {
+        res.json(book);
+    } else {
+        res.status(404).send("Book not found");
+    }
+});
+
+app.post("/books", (req, res) => {
+    const newBook: Books = req.body;
+    const addedBook = addBook(newBook);
+    res.status(201).json(addedBook);
+});
 
 
