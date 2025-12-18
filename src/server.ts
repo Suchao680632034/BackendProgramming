@@ -32,9 +32,9 @@ app.get('/test', (req, res) => {
     }
     res.send(returnObj);
 })
-app.get("/events/:id", (req, res) => {
+app.get("/events/:id", async (req, res) => {
     const id = parseInt(req.params.id);
-    const event = getEventById(id);
+    const event = await getEventById(id);
     if (event) {
         res.json(event);
     } else {
@@ -43,20 +43,19 @@ app.get("/events/:id", (req, res) => {
 });
 
 
-app.get("/events", (req, res) => {
+app.get("/events", async (req, res) => {
     if (req.query.category) {
         const category = req.query.category;
-        const filteredEvents = getEventsByCategory(category as string);
+        const filteredEvents = await getEventsByCategory(category as string);
         res.json(filteredEvents);
     } else {
-        res.json(getAllEvents());
+        res.json(await getAllEvents());
     }
 });
 
-app.post("/events", (req, res) => {
+app.post("/events", async (req, res) => {
     const newEvent: Event = req.body;
-   addEvent(newEvent);
-    res.json(newEvent);
+    res.json(await newEvent);
 });
 
 
