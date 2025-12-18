@@ -9,29 +9,12 @@ const port = 3000
 app.use(express.json())
 
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello World!')
-})
+
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
 })
-app.get('/test', (req: Request, res: Response) => {
-    const id = req.query.id;
-    const output = `id: ${id}`;
-    res.send(output);
-})
 
-
-
-app.get('/test', (req, res) => {
-    let returnObj = {
-        name: 'test',
-        age: 20,
-        address: 'Thai'
-    }
-    res.send(returnObj);
-})
 app.get("/events/:id", async (req, res) => {
     const id = parseInt(req.params.id);
     const event = await getEventById(id);
@@ -55,23 +38,24 @@ app.get("/events", async (req, res) => {
 
 app.post("/events", async (req, res) => {
     const newEvent: Event = req.body;
-    res.json(await newEvent);
+    
+    res.json(await addEvent(newEvent));
 });
 
 
-app.get("/books", (req, res) => {
+app.get("/books", async (req, res) => {
     const genre = req.query.genre as string;
     if (genre) {
-        const filteredBooks = getBooksByGenre(genre);
+        const filteredBooks = await getBooksByGenre(genre);
         res.json(filteredBooks);
     } else {
-        res.json(getAllBooks());
+        res.json(await getAllBooks());
     }
 });
 
-app.get("/books/:id", (req, res) => {
+app.get("/books/:id", async (req, res) => {
     const id = parseInt(req.params.id);
-    const book = getBookById(id);
+    const book = await getBookById(id);
     if (book) {
         res.json(book);
     } else {
@@ -79,10 +63,9 @@ app.get("/books/:id", (req, res) => {
     }
 });
 
-app.post("/books", (req, res) => {
+app.post("/books", async (req, res) => {
     const newBook: Books = req.body;
-    const addedBook = addBook(newBook);
-    res.status(201).json(addedBook);
+    res.json(await addBook(newBook));
 });
 
 

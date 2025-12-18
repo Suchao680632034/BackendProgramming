@@ -41,20 +41,20 @@ const books: Books[] = [
 ];
 
 
-export function getBooksByGenre(genre: string): Books[] {
+export async function getBooksByGenre(genre: string): Promise<Books[]> {
     const filteredBooks = books.filter((book) => book.genre === genre);
     return filteredBooks;   
 }
 
-export function getAllBooks(): Books[] {
+export async function getAllBooks(): Promise<Books[]> {
     return books;
 }
 
-export function getBookById(id: number): Books | undefined {
+export async function getBookById(id: number): Promise<Books | undefined> {
     return books.find((book) => book.id === id);
 }
 
-export function addBook(newBook: Books): Books {
+export async function addBook(newBook: Books): Promise<Books> {
     newBook.id = books.length + 1;
     books.push(newBook);
     return newBook;
