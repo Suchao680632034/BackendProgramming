@@ -34,29 +34,34 @@ app.get('/test', (req, res) => {
 })
 app.get("/events/:id", (req, res) => {
     const id = parseInt(req.params.id);
-    const event = getEventById(id);
-    if (event) {
-        res.json(event);
-    } else {
-        res.status(404).send("Event not found");
-    }
+    getEventById(id).then((event: Event | undefined) => {
+        if (event) {
+            res.json(event);
+        } else {
+            res.status(404).send("Event not found");
+        }
+    });
 });
 
 
 app.get("/events", (req, res) => {
     if (req.query.category) {
-        const category = req.query.category;
-        const filteredEvents = getEventsByCategory(category as string);
-        res.json(filteredEvents);
+        const category = req.query.category as string;
+        getEventsByCategory(category).then((filteredEvents: Event[]) => {
+            res.json(filteredEvents);
+        });
     } else {
-        res.json(getAllEvents());
+        getAllEvents().then((events: Event[]) => {
+            res.send(events);
+        });
     }
 });
 
 app.post("/events", (req, res) => {
     const newEvent: Event = req.body;
-   addEvent(newEvent);
-    res.json(newEvent);
+   addEvent(newEvent).then((addedEvent: Event) => {
+        res.status(201).json(addedEvent);
+    });
 });
 
 
