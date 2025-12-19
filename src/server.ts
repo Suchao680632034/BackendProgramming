@@ -1,15 +1,13 @@
 import express, {Request, Response} from 'express'
 import { getAllEvents, getEventById, getEventsByCategory, addEvent } from "../src/services/EventService";
-import { getAllBooks, getBookById, getBooksByGenre, addBook } from "../src/services/BooksService";
+import { getAllBooks, getBookById, getBooksByGenre, addBook } from "../src/services/EventService";
 import type Event from "./models/Events";
 import { Books } from './models/Events';
 
 const app = express()
 const port = 3000
 app.use(express.json())
-
-
-
+ 
 
 app.listen(port, () => {
     console.log(`App listening at http://localhost:${port}`)
